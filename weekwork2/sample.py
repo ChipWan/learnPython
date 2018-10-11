@@ -12,21 +12,27 @@ def main():
 	text=[]
 	query=[]
 	with open(sys.argv[1]) as file:
-		tmp=file.read().lower()
-		text=list(tmp.split('.').split('?').split('!'))
+		ftmp=file.read().lower()
+		eof=('.','?','!')
+		sentence=""
+		for e in ftmp:
+			if e in eof:
+				text.append(sentence.split())
+				sentence=""
+			else:
+				sentence+=e if e.isalpha() else " "
+	#print(text)
 	with open(sys.argv[2]) as file:
-		while True:
-			tmp=file.readline().lower()
-			if not tmp:
-				break
-			query.append(tmp)
+		query=file.read().lower().splitlines()
+	#print(query)
 	for word in query:
 		res=[]
 		for i in range(len(text)):
-			tmp=text.find(word)
-			if tmp!=-1:
-				res.append("{}/{}".format(i+1,tmp))
-		if not res:
+			for (j,value) in enumerate(text[i]):
+				#print("value=",value,"word=",word)
+				if value==word:
+					res.append("{}/{}".format(i+1,j+1))
+		if res:
 			print(','.join(res))
 		else:
 			print("None")
