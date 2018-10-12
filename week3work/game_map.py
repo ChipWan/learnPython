@@ -14,7 +14,6 @@ class GameMap(object):
     Attributes:
         size:
     """
-
     MAX_MAP_SIZE = 100
     MAX_CELL_VALUE = 1
     DIRECTIONS = (
